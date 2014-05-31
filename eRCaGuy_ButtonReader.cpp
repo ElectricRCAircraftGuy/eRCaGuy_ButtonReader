@@ -1,6 +1,6 @@
 /*
 eRCaGuy_ButtonReader
-Library webpage: ###########NONE YET#########
+Library webpage: http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybuttonreader-library-for-arduino.html
 -I wanted a simple and universal, yet very powerful & reliable library to read a button or switch in such a way that I can
  easily implement toggled actions and momentary actions, know the true, debounced state of a button or switch at any given time, 
  and specify whether I want an action to take place when the button is *pressed* or *released.*  This library makes implementing all of
