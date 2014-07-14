@@ -143,7 +143,7 @@ void eRCaGuy_ButtonReader::readButton(int8_t* button_action, boolean* button_sta
                            //                                           -1 = button was just released by a human operator (debounceDelay had elapsed)
   //0) Update lastBounceTime each time a bounce occurs
   unsigned int reading = digitalRead(_buttonPin); //get a new reading
-  if (reading != reading_old)
+  if (reading != reading_old) //check to see if the *bouncing* button state has changed
   {
     reading_old = reading; //update
     lastBounceTime = millis();
@@ -155,7 +155,7 @@ void eRCaGuy_ButtonReader::readButton(int8_t* button_action, boolean* button_sta
     //since the debounceDelay has elapsed, this means the reading is no longer changing, which means bouncing is no longer occurring,
     //which means that the current reading is the actual, new, NOT bouncing button state
     buttonState = reading; //store the actual, NOT bouncing button state
-    //2) Check to see if the button state has CHANGED
+    //2) Check to see if the *actual, NOT bouncing* button state has CHANGED
     if (buttonState != buttonState_old) //if the actual, NOT bouncing button state has changed
     {
       //3) Since we know that the press was by a human, and not noise (since the debounceDelay has occurred), and since we know the button state has
