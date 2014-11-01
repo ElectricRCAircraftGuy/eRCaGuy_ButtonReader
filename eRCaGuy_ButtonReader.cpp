@@ -1,6 +1,6 @@
 /*
 eRCaGuy_ButtonReader
-Library webpage: http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybuttonreader-library-for-arduino.html
+Library webpage: #http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybuttonreader-library-for-arduino.html
 -I wanted a simple and universal, yet very powerful & reliable library to read a button or switch in such a way that I can
  easily implement toggled actions and momentary actions, know the true, debounced state of a button or switch at any given time, 
  and specify whether I want an action to take place when the button is *pressed* or *released.*  This library makes implementing all of
@@ -10,12 +10,15 @@ Library webpage: http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybutton
  http://electricrcaircraftguy.blogspot.com/
  -My contact info is available by clicking the "Contact Me" tab at the top of my blog.
  Written: 30 May 2014
- Last Updated: 31 May 2014
+ Last Updated: 31 Oct 2014
  
- Version: 1.0 - first release
+ Version (newest on top): 
+ 1.1 - fixed bug which prevented multiple buttons from working
+ 1.0 - first release
  
  History (newest on top):
- 20140531 - first version created
+ 20141031 - V1.1 release; fixed major bug which prevented multiple buttons from working
+ 20140531 - V1.0 release; first version created
  
  Credits:
  1) This file was created and edited in Notepad++ (http://notepad-plus-plus.org/)
@@ -61,15 +64,24 @@ Library webpage: http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybutton
 
 #include "eRCaGuy_ButtonReader.h"
 
+//define class constants
+const int8_t eRCaGuy_ButtonReader::PRESSED_ACTION = 1;
+const int8_t eRCaGuy_ButtonReader::RELEASED_ACTION = -1;
+
 //define class constructor method
 eRCaGuy_ButtonReader::eRCaGuy_ButtonReader(uint8_t buttonPin,unsigned int debounceDelay,boolean pinStateWhenButtonPressed)
 {
+  //initialize _BUTTON_PRESSED and _BUTTON_NOT_PRESSED member variables
+  setPinStateWhenButtonPressed(pinStateWhenButtonPressed);
+	
   //initialize member variables
   _buttonPin = buttonPin;
   _debounceDelay = debounceDelay;
-  
-  //initialize _BUTTON_PRESSED and _BUTTON_NOT_PRESSED member variables
-  setPinStateWhenButtonPressed(pinStateWhenButtonPressed);
+	//for readButton method
+	_lastBounceTime = 0; //ms; the last time the button bounced (ie: the time stamp when the digital reading value last changed)
+	_reading_old = digitalRead(_buttonPin); //the previous reading; initialize as the first reading when instantiating an object
+	_buttonState = _BUTTON_NOT_PRESSED; //the current, actual, NOT bouncing button state; initialize as BUTTON_NOT_PRESSED
+	_buttonState_old = _BUTTON_NOT_PRESSED; //the previous, actual, NOT bouncing button state; initialize as BUTTON_NOT_PRESSED, so that we start out looking for a button press, NOT a button release
 }
 
 //define other class methods (functions)
@@ -132,49 +144,43 @@ unsigned int eRCaGuy_ButtonReader::getDebounceDelay()
 // -1 = button was just *released* by a human operator (debounceDelay had elapsed)
 void eRCaGuy_ButtonReader::readButton(int8_t* button_action, boolean* button_state)
 {
-  //Local variables
-  static unsigned long lastBounceTime = 0; //ms; the last time the button bounced (ie: the time stamp when the digital reading value last changed)
-  static unsigned int reading_old = digitalRead(_buttonPin); //the previous reading; initialize as the first reading when entering this function
-  static boolean buttonState = _BUTTON_NOT_PRESSED; //the current, actual, NOT bouncing button state; initialize as BUTTON_NOT_PRESSED
-  static boolean buttonState_old = _BUTTON_NOT_PRESSED; //the previous, actual, NOT bouncing button state; initialize as BUTTON_NOT_PRESSED, so that we start out looking for a button press, NOT a button release
-  
   int8_t buttonAction = 0; //indicates what just happened to the button: 0 = no-change in button state, or debounceDelay time not yet elapsed <--*perhaps* in the future, output a 3 to indicate debounceDelay time not yet elapsed
                            //                                            1 = button was just pressed by a human operator (debounceDelay had elapsed)
                            //                                           -1 = button was just released by a human operator (debounceDelay had elapsed)
-  //0) Update lastBounceTime each time a bounce occurs
+  //0) Update _lastBounceTime each time a bounce occurs
   unsigned int reading = digitalRead(_buttonPin); //get a new reading
-  if (reading != reading_old) //check to see if the *bouncing* button state has changed
+  if (reading != _reading_old) //check to see if the *bouncing* button state has changed
   {
-    reading_old = reading; //update
-    lastBounceTime = millis();
+    _reading_old = reading; //update
+    _lastBounceTime = millis();
   }
   //1) Only conclude that the button is at its actual (not bouncing) button state if the debounceDelay has elapsed, as this means
   //   that the button is now resting in its final, NOT bouncing condition.
-  if (millis() - lastBounceTime > _debounceDelay) //if the debounce time has elapsed
+  if (millis() - _lastBounceTime > _debounceDelay) //if the debounce time has elapsed
   {
     //since the debounceDelay has elapsed, this means the reading is no longer changing, which means bouncing is no longer occurring,
     //which means that the current reading is the actual, new, NOT bouncing button state
-    buttonState = reading; //store the actual, NOT bouncing button state
+    _buttonState = reading; //store the actual, NOT bouncing button state
     //2) Check to see if the *actual, NOT bouncing* button state has CHANGED
-    if (buttonState != buttonState_old) //if the actual, NOT bouncing button state has changed
+    if (_buttonState != _buttonState_old) //if the actual, NOT bouncing button state has changed
     {
       //3) Since we know that the press was by a human, and not noise (since the debounceDelay has occurred), and since we know the button state has
       //   CHANGED, meaning that the button isn't just sitting constant in a pressed or released state, let's check to see if the button is PRESSED,
       //   or UN-PRESSED/RELEASED, then act on the side of the action that we see fit
-      if (buttonState==_BUTTON_PRESSED) //if a button press is detected
+      if (_buttonState==_BUTTON_PRESSED) //if a button press is detected
       {
         buttonAction = 1; //button just pressed by a human operator (debounceDelay had elapsed)
       }
-      else //buttonState==_BUTTON_NOT_PRESSED
+      else //_buttonState==_BUTTON_NOT_PRESSED
       {
         buttonAction = -1; //button was just released by a human operator (debounceDelay had elapsed)
       }
     } //end of checking to see if the button state has CHANGED
-    buttonState_old = buttonState; //update the old button state
+    _buttonState_old = _buttonState; //update the old button state
   } //end of Button debouncing & Output Toggle code
   
   //update the output variables, via the pointers passed in to the function
   *button_action = buttonAction;
-  *button_state = buttonState;
+  *button_state = _buttonState;
 }
 

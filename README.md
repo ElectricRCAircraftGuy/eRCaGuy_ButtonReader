@@ -1,6 +1,10 @@
 **Readme for eRCaGuy_ButtonReader**
 By Gabriel Staples
-Last updated: 31 May 2014
+Written: 31 May 2014
+Last updated: 31 Oct. 2014
+
+**Updates**
+-20141031: corrected a bug which prevented multiple buttons from working; added a 5 button example.
 
 **Instructions**
 Download the code by clicking "Download ZIP" to the right.  Extract the files, and install the library.  If you need help installing an Arduino library, check out Adafruit's excellent tutorial here: https://learn.adafruit.com/adafruit-all-about-arduino-libraries-install-use?view=all.

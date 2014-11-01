@@ -10,12 +10,15 @@ Library webpage: #http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybutto
  http://electricrcaircraftguy.blogspot.com/
  -My contact info is available by clicking the "Contact Me" tab at the top of my blog.
  Written: 30 May 2014
- Last Updated: 31 May 2014
+ Last Updated: 31 Oct 2014
  
- Version: 1.0 - first release
+ Version (newest on top): 
+ 1.1 - fixed bug which prevented multiple buttons from working
+ 1.0 - first release
  
  History (newest on top):
- 20140531 - first version created
+ 20141031 - V1.1 release; fixed major bug which prevented multiple buttons from working
+ 20140531 - V1.0 release; first version created
  
  Credits:
  1) This file was created and edited in Notepad++ (http://notepad-plus-plus.org/)
@@ -68,39 +71,45 @@ class eRCaGuy_ButtonReader
     //declare class constructor method
     eRCaGuy_ButtonReader(uint8_t buttonPin,unsigned int debounceDelay = 50,boolean pinStateWhenButtonPressed = LOW); //default debounceDelay, if not specified, is 50ms; the default state of the pin when the button is pressed is LOW (this is valid when using a pull-up resistor on the pin)
 	
-	//declare other public class methods (functions)
-	
-	//function to set the debounceDelay time (in ms)
-	void setDebounceDelay(unsigned int debounceDelay = 50); //default is 50ms
-	
-	//function to set or change the pin the button is connected to
-	void setButtonPin(uint8_t buttonPin); 
-	
-	//function to specify whether the button is considered pressed when the buttonPin is HIGH or LOW
-	void setPinStateWhenButtonPressed(boolean pinStateWhenButtonPressed = LOW); //the default is that the button is considered pressed when the buttonPin is LOW (this is valid when using a pull-up resistor on the pin)
-	
-	//function to find out what the current debounceDelay is set to
-	unsigned int getDebounceDelay();
-	
-	//read the button action, and store it into the button_action variable; and read the button state, & store it into the button_state variable
-	//The button state can be 0 or 1, for LOW or HIGH, respectively
-	// button action indicates what just happened to the button: 
-	//	0 = no-change in true, debounced button state since last time reading the button, or debounceDelay time not yet elapsed <--*perhaps* in the future, output a 3 to indicate debounceDelay time not yet elapsed
-	//	1 = button was just pressed by a human operator (debounceDelay had elapsed)
-    // -1 = button was just released by a human operator (debounceDelay had elapsed)
-	void readButton(int8_t* button_action, boolean* button_state);
-	
-	//public variables or constants
-	//N/A
+		//declare other public class methods (functions)
+		
+		//function to set the debounceDelay time (in ms)
+		void setDebounceDelay(unsigned int debounceDelay = 50); //default is 50ms
+		
+		//function to set or change the pin the button is connected to
+		void setButtonPin(uint8_t buttonPin); 
+		
+		//function to specify whether the button is considered pressed when the buttonPin is HIGH or LOW
+		void setPinStateWhenButtonPressed(boolean pinStateWhenButtonPressed = LOW); //the default is that the button is considered pressed when the buttonPin is LOW (this is valid when using a pull-up resistor on the pin)
+		
+		//function to find out what the current debounceDelay is set to
+		unsigned int getDebounceDelay();
+		
+		//read the button action, and store it into the button_action variable; and read the button state, & store it into the button_state variable
+		//The button state can be 0 or 1, for LOW or HIGH, respectively
+		// button action indicates what just happened to the button: 
+		//	0 = no-change in true, debounced button state since last time reading the button, or debounceDelay time not yet elapsed <--*perhaps* in the future, output a 3 to indicate debounceDelay time not yet elapsed
+		//	1 = button was just pressed by a human operator (debounceDelay had elapsed)
+			// -1 = button was just released by a human operator (debounceDelay had elapsed)
+		void readButton(int8_t* button_action, boolean* button_state);
+		
+		//Public class constants
+		static const int8_t PRESSED_ACTION, RELEASED_ACTION;
+		
 									   
   private:
-	//declare private class methods (functions)
-	//N/A
-    //variables accessible by this class only
-	uint8_t _buttonPin;
-	unsigned int _debounceDelay;
-	boolean _BUTTON_PRESSED;
-	boolean _BUTTON_NOT_PRESSED;
+		//declare private class methods (functions)
+		//N/A
+	  //variables accessible by this class only
+		uint8_t _buttonPin;
+		unsigned int _debounceDelay;
+		boolean _BUTTON_PRESSED;
+		boolean _BUTTON_NOT_PRESSED;
+		//for readButton method
+		unsigned long _lastBounceTime;
+		unsigned int _reading_old;
+		boolean _buttonState;
+		boolean _buttonState_old;
 };
 
 #endif

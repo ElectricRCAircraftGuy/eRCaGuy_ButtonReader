@@ -5,7 +5,8 @@ readButtonVerbose.ino
 eRCaGuy_ButtonReader example
 By Gabriel Staples
 http://electricrcaircraftguy.blogspot.com/
-30 May 2014
+Written: 31 May 2014
+Updated: 31 Oct. 2014
 
 Library webpage: http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybuttonreader-library-for-arduino.html
 -I wanted a simple and universal, yet very powerful & reliable library to read a button or switch in such a way that I can
@@ -44,9 +45,9 @@ const boolean BUTTON_NOT_PRESSED = HIGH; //if using a pull-up resistor (ex: INPU
 
 //instantiate an object of this library class; call it "button1"
 //if not explicitly stated, debounceDelay defaults to 50ms, and the _BUTTON_PRESSED value in the library defaults to LOW; see .h file for details
-eRCaGuy_ButtonReader button1 = eRCaGuy_ButtonReader(buttonPin); 
+eRCaGuy_ButtonReader button1(buttonPin); //object instantiation
 //alternatively, the object instantiation could be explicit, as follows:
-//eRCaGuy_ButtonReader button1 = eRCaGuy_ButtonReader(buttonPin,50,BUTTON_PRESSED);
+//eRCaGuy_ButtonReader button1(buttonPin,50,BUTTON_PRESSED); //note: the 50 here is the debounce delay in ms; increase if you get jitter on the button
 
 void setup() 
 {

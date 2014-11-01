@@ -25,3 +25,5 @@ readButton	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
+PRESSED_ACTION	LITERAL1
+RELEASED_ACTION	LITERAL1
