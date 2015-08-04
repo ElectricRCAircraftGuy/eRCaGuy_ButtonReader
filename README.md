@@ -1,7 +1,10 @@
 ##Readme for eRCaGuy_ButtonReader  
 By Gabriel Staples  
-Written: 31 May 2014  
-Last updated: 31 Oct. 2014  
+Readme Written: 31 May 2014  
+Readme Last updated: 4 Aug. 2015  
+
+**Readme Update History (newest on top)**  
+-20150804: updated links, instructions, & license info
 
 ##Library Updates (newest on top):  
 -20141031: corrected a bug which prevented multiple buttons from working; added a 5 button example.  
