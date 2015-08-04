@@ -35,23 +35,26 @@ Library webpage: #http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybutto
   LICENSE & DISCLAIMER
   Copyright (C) 2014 Gabriel Staples.  All right reserved.
   
-  ------------------------------------------------------------------------------------------------
-  License: GNU Lesser General Public License Version 3 (LGPLv3) - https://www.gnu.org/licenses/lgpl.html
-  ------------------------------------------------------------------------------------------------
-
   This file is part of eRCaGuy_ButtonReader.
   
+  I AM WILLING TO DUAL-LICENSE THIS SOFTWARE. HOWEVER, UNLESS YOU HAVE PAID FOR AND RECEIVED A RECEIPT
+  FOR AN ALTERNATE LICENSE AGREEMENT, FROM ME, THE COPYRIGHT OWNER, THIS SOFTWARE IS LICENSED AS FOLLOWS: 
+  
+  ------------------------------------------------------------------------------------------------
+  License: GNU General Public License Version 3 (GPLv3) - https://www.gnu.org/licenses/gpl.html
+  ------------------------------------------------------------------------------------------------
+  
   This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as published by
+  it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
+  GNU General Public License for more details.
 
-  You should have received a copy of the GNU Lesser General Public License
+  You should have received a copy of the GNU General Public License
   along with this program.  If not, see http://www.gnu.org/licenses/
 ===================================================================================================
 */

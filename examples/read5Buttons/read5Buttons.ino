@@ -14,7 +14,7 @@ Library webpage: http://electricrcaircraftguy.blogspot.com/2014/05/ercaguybutton
  these things easy for me, and I now use it on all of my projects that require reading a button or switch, so I wanted to share it with others.  
  Hopefully you find it useful too.
  
-License for Library and Examples: GNU Lesser General Public License Version 3 (LGPLv3) - https://www.gnu.org/licenses/lgpl.html
+License for Library and Examples: GNU General Public License Version 3 (GPLv3) - https://www.gnu.org/licenses/gpl.html
 -See library .h and .cpp files for details
 
 Description:
