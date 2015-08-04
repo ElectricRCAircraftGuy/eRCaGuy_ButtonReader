@@ -17,7 +17,8 @@ Donate and download above. Install the library into the Arduino IDE (using Sketc
 * This library makes implementing all of these things easy for me, and I now use it on all of my projects that require reading a button or switch, so I wanted to share it with others.  
 * Hopefully you find it useful too.  
 
-##For more information on this code see here:   http://www.electricrcaircraftguy.com/2014/05/ercaguybuttonreader-library-for-arduino.html  
+##For more information on this code see here:  
+http://www.electricrcaircraftguy.com/2014/05/ercaguybuttonreader-library-for-arduino.html  
 
 Be sure to check out the links above.  I hope you find this useful.  
 Sincerely,  
