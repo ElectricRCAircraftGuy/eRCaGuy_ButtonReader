@@ -96,7 +96,7 @@ class eRCaGuy_ButtonReader
 			// -1 = button was just released by a human operator (debounceDelay had elapsed)
 		void readButton(int8_t* button_action, boolean* button_state);
 		
-		//Public class constants
+		//Public class constants (defined in .cpp file)
 		static const int8_t PRESSED_ACTION, RELEASED_ACTION;
 		
 									   
