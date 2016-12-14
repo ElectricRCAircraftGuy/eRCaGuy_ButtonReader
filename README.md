@@ -6,7 +6,7 @@ Readme Last updated: 4 Aug. 2015
 **Readme Update History (newest on top)**  
 -20150804: updated links, instructions, & license info
 
-#UPDATE 13 DEC 2016. This library is being replaced by [eRCaGuy_EventReader](https://github.com/ElectricRCAircraftGuy/eRCaGuy_EventReader)
+#UPDATE 13 DEC 2016. This library is now replaced by [eRCaGuy_EventReader](https://github.com/ElectricRCAircraftGuy/eRCaGuy_EventReader)
 
 ##Library Updates (newest on top):  
 -20141031: corrected a bug which prevented multiple buttons from working; added a 5 button example.  
